@@ -1,9 +1,6 @@
 # Import libraries
 import pandas as pd
 from datetime import date, datetime
-import matplotlib.pyplot as plt
-import seaborn as sb
-import numpy as np
 import plotly.offline as pyo
 from plotly import graph_objs as go
 from plotly.subplots import make_subplots

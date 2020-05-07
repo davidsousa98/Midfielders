@@ -4,7 +4,9 @@ from datetime import date, datetime
 import matplotlib.pyplot as plt
 import seaborn as sb
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
+import plotly.offline as pyo
 
 # Import dataset
 df = pd.read_excel('/Users/davidsousa/Documents/SportsDS/datasets/midfielders.xlsx')
@@ -73,7 +75,6 @@ X = df[['clearances_per_game', 'interceptions_per_game', 'duelswon_per_game',  '
         'fouls_per_game', 'completepasses_per_game', 'smartpasses_per_game', 'shots_per_game', 'crosses_per_game']]
 
 # Data standardization
-from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 scaler_X = pd.DataFrame(scaler.fit_transform(X))
 scaler_X.columns = ['clearances_per_game', 'interceptions_per_game', 'duelswon_per_game',  'blocks_per_game',
@@ -95,6 +96,83 @@ centroids = centroids.merge(cluster_size, on='Cluster', how='inner')
 
 # Cluster labeling
 df['Cluster'] = kmeans.labels_
-df['Description'] = 'Offensive'
-df.loc[df['Cluster'] == 0, 'Description'] = 'Defensive'
-df.loc[df['Cluster'] == 1, 'Description'] = 'Inactive'
+df['Role'] = 'Offensive'
+df.loc[df['Cluster'] == 0, 'Role'] = 'Defensive'
+df.loc[df['Cluster'] == 1, 'Role'] = 'Inactive'
+
+# Cluster visualization
+cluster_1 = df.loc[df['Role'] == 'Defensive']
+cluster_2 = df.loc[df['Role'] == 'Offensive']
+cluster_3 = df.loc[df['Role'] == 'Inactive']
+
+scatter1 = dict(
+    mode="markers",
+    name="Defensive",
+    type="scatter3d",
+    text=cluster_1['PlayerName'],
+    x=cluster_1.values[:, 10], y=cluster_1.values[:, 16], z=cluster_1.values[:, 21],
+    marker=dict(size=2, color="green")
+)
+scatter2 = dict(
+    mode="markers",
+    name="Offensive",
+    type="scatter3d",
+    text=cluster_2['PlayerName'],
+    x=cluster_2.values[:, 10], y=cluster_2.values[:, 16], z=cluster_2.values[:, 21],
+    marker=dict(size=2, color="blue")
+)
+scatter3 = dict(
+    mode="markers",
+    name="Inactive",
+    type="scatter3d",
+    text=cluster_3['PlayerName'],
+    x=cluster_3.values[:, 10], y=cluster_3.values[:, 16], z=cluster_3.values[:, 21],
+    marker=dict(size=2, color="red")
+)
+
+cluster1 = dict(
+    alphahull=5,
+    name="Defensive",
+    opacity=.1,
+    type="mesh3d",
+    text=cluster_1['PlayerName'],
+    x=cluster_1.values[:, 10], y=cluster_1.values[:, 16], z=cluster_1.values[:, 21],
+    color='green', showscale=True
+)
+cluster2 = dict(
+    alphahull=5,
+    name="Offensive",
+    opacity=.1,
+    type="mesh3d",
+    text=cluster_2['PlayerName'],
+    x=cluster_2.values[:, 10], y=cluster_2.values[:, 16], z=cluster_2.values[:, 21],
+    color='blue', showscale=True
+)
+cluster3 = dict(
+    alphahull=5,
+    name="Inactive",
+    opacity=.1,
+    type="mesh3d",
+    text=cluster_3['PlayerName'],
+    x=cluster_3.values[:, 10], y=cluster_3.values[:, 16], z=cluster_3.values[:, 21],
+    color='red', showscale=True
+)
+
+
+layout = dict(
+    title='3d point clustering',
+    scene=dict(
+        xaxis=dict(zeroline=True, title_text='Clearances per game'),
+        yaxis=dict(zeroline=True, title_text='Fouls per game'),
+        zaxis=dict(zeroline=True, title_text='Shots per game'),
+    ),
+)
+fig = dict(data=[scatter1, scatter2, scatter3, cluster1, cluster2, cluster3], layout=layout)
+pyo.plot(fig)
+
+# Set Player ID to index
+df.set_index('PlayerID', inplace=True)
+
+# Export dataset to excel file
+df.to_excel('/Users/davidsousa/Documents/SportsDS/datasets/players_clt.xlsx')
+

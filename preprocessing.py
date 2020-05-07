@@ -224,6 +224,6 @@ info = df.describe()
 # Filter by midfielders
 midfielders_df = df.loc[df['Position'] == 'Midfielder']
 
-# Export data to excel file
+# Export datasets to excel file
 df.to_excel('/Users/davidsousa/Documents/SportsDS/datasets/players.xlsx')
 midfielders_df.to_excel('/Users/davidsousa/Documents/SportsDS/datasets/midfielders.xlsx')
