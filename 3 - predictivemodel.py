@@ -105,7 +105,7 @@ def metrics(y_train, pred_train, y_val, pred_val, target_names):
     print(confusion_matrix(y_val, pred_val))
 
 
-metrics(y_train, labels_train, y_val, y_val, np.unique(y_train))
+metrics(y_train, labels_train, y_val, labels_val, np.unique(y_train))
 
 def plot_cm(confusion_matrix: np.array, class_names: list):
     """
