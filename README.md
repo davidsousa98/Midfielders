@@ -5,7 +5,7 @@
 
   The data used throughout the entire project concern to the matches of the top 5 leagues during the season 2018/19 as well as the participating players. 
   
-  The data source can be found in the following link https://figshare.com/collections/Soccer_match_event_dataset/4415000/2.
+  The data source can be found in the following link: https://figshare.com/collections/Soccer_match_event_dataset/4415000/2.
   
   The report with detailed information and results can be consulted at: https://bit.ly/2yndXU2
   
