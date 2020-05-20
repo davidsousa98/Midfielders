@@ -3,4 +3,21 @@
 
   Secondly, after the formation of the groups, a predictive model was applied in order to assign new players to the groups already established. This approach is useful in the sense that, for instance during the winter transfer window, new players arrive at the league and the model is capable of predicting the role of the unknown player according to his mid-season characteristics.
 
-  The data used throughout the entire project concern to the matches of the top 5 leagues during the season 2018/19 as well as the participating players. The data source can be found in the following link https://figshare.com/collections/Soccer_match_event_dataset/4415000/2.
+  The data used throughout the entire project concern to the matches of the top 5 leagues during the season 2018/19 as well as the participating players. 
+  
+  The data source can be found in the following link https://figshare.com/collections/Soccer_match_event_dataset/4415000/2.
+  
+  The report with detailed information and results can be consulted at: https://bit.ly/2yndXU2
+  
+  ### Additional information:
+
+**Project Format:** Python File (.py)
+
+**Project Maximum Size:** None
+
+**Beginning Date:** 20th April 2020
+
+**Due Date:** None
+
+**Members:**
+- davidsousa98
